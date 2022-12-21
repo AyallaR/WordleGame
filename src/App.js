@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState } from "react";
+import { readConfigFile } from "typescript";
+import "./App.scss";
+import { Board } from "./components/Board";
+import { Keyboard } from "./components/Keyboard";
+import ReactDOM from "react-dom";
+import { Header } from "./components/Header";
 
 function App() {
+  const [guesses, setGuesses] = useState([[], [], [], []]);
+
+  function addGuess(ch) {
+    if (guesses.length < 5) {
+      guesses[0].push(ch);
+      setGuesses(guesses);
+      console.log(guesses);
+    } else if (guesses.length === 5) {
+      alert("DONE");
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <Board />
+        <Keyboard />
+      </div>
+    </>
   );
 }
 
